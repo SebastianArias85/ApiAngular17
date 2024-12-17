@@ -1,0 +1,74 @@
+<div class="container mt-4">
+    <h2>Lista de Artículos</h2>
+  
+    <!-- Formulario para agregar un nuevo artículo -->
+    <div class="mb-4">
+      <h3>Agregar Nuevo Artículo</h3>
+      <form (ngSubmit)="agregarArticulo()" #form="ngForm">
+        <div class="form-group">
+          <label for="descripcion">Descripción</label>
+          <input type="text" id="descripcion" name="descripcion" [(ngModel)]="nuevoArticulo.descripcion"
+                 class="form-control" required>
+        </div>
+  
+        <div class="form-group mt-2">
+          <label for="precio">Precio</label>
+          <input type="number" id="precio" name="precio" [(ngModel)]="nuevoArticulo.precio"
+                 class="form-control" required>
+        </div>
+  
+        <div class="mt-3">
+          <button type="submit" class="btn btn-primary">Agregar Artículo</button>
+          <button type="button" class="btn btn-secondary" (click)="cancelarAgregar()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Descripción</th>
+          <th>Precio</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let articulo of articulos">
+          <td>{{ articulo.codigo }}</td>
+          <td>
+            <input *ngIf="articuloEditado && articuloEditado.codigo === articulo.codigo" 
+                   type="text" [(ngModel)]="descripcionEditada" class="form-control">
+            <span *ngIf="!(articuloEditado && articuloEditado.codigo === articulo.codigo)">
+              {{ articulo.descripcion }}
+            </span>
+          </td>
+          <td>
+            <input *ngIf="articuloEditado && articuloEditado.codigo === articulo.codigo" 
+                   type="number" [(ngModel)]="precioEditado" class="form-control">
+            <span *ngIf="!(articuloEditado && articuloEditado.codigo === articulo.codigo)">
+              {{ articulo.precio | currency }}
+            </span>
+          </td>
+          <td>
+            <button *ngIf="!(articuloEditado && articuloEditado.codigo === articulo.codigo)" 
+                    class="btn btn-warning" (click)="editarArticulo(articulo)">
+              Modificar
+            </button>
+            <button *ngIf="articuloEditado && articuloEditado.codigo === articulo.codigo" 
+                    class="btn btn-success" (click)="guardarCambios()">
+              Guardar Cambios
+            </button>
+            <button *ngIf="articuloEditado && articuloEditado.codigo === articulo.codigo" 
+                    class="btn btn-secondary" (click)="cancelarEdicion()">
+              Cancelar
+            </button>
+            <button class="btn btn-danger" (click)="eliminarArticulo(articulo.codigo)">
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
