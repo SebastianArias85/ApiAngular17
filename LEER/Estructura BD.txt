@@ -1,0 +1,22 @@
+------Estructura BASE DE DATOS-----
+
+CREATE DATABASE bd2;
+
+USE bd2;
+
+CREATE TABLE articulos (
+    codigo INT AUTO_INCREMENT PRIMARY KEY,  -- Identificador único para cada artículo
+    descripcion VARCHAR(255) NOT NULL,      -- Descripción del artículo
+    precio DECIMAL(10, 2) NOT NULL          -- Precio del artículo (con 2 decimales)
+);
+
+--------------------------------------------------------------------------------------------------------
+
+Consulta AGREGAR artículo:
+INSERT INTO articulos (descripcion, precio) VALUES ('Angular 17', 25000.50);
+
+Consulta ACTUALIZAR artículo:
+UPDATE articulos SET descripcion = 'Nuevo nombre', precio = 30.00 WHERE codigo = 1;
+
+Consulta ELIMINAR artículo:
+DELETE FROM articulos WHERE codigo = 1;
